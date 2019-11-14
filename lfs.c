@@ -3887,6 +3887,12 @@ static int lfs_fs_relocate(lfs_t *lfs,
             d->m.pair[0] = newpair[0];
             d->m.pair[1] = newpair[1];
         }
+
+        if (d->type == LFS_TYPE_DIR &&
+                lfs_pair_cmp(oldpair, ((lfs_dir_t*)d)->head) == 0) {
+            ((lfs_dir_t*)d)->head[0] = newpair[0];
+            ((lfs_dir_t*)d)->head[1] = newpair[1];
+        }
     }
 
     // find parent
